@@ -64,6 +64,10 @@
                     "path": "patches/fabla-install.patch"
                 },
                 {
+                    "type": "patch",
+                    "path": "patches/fabla-aarch64.patch"
+                },
+                {
                     "type": "file",
                     "path": "org.freedesktop.LinuxAudio.Plugins.Fabla.metainfo.xml"
                 }
