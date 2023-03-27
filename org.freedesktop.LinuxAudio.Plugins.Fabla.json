@@ -20,7 +20,7 @@
             "buildsystem": "simple",
             "build-commands": [
                 "python3 ./waf configure --prefix=${FLATPAK_DEST} --libdir=lib",
-                "python3 ./waf",
+                "python3 ./waf -j $FLATPAK_BUILDER_N_JOBS",
                 "python3 ./waf install"
             ],
             "cleanup": [
@@ -43,29 +43,23 @@
         {
             "name": "fabla",
             "buildsystem": "cmake-ninja",
-            "cleanup": [
-            ],
-            "post_install": [
+            "build-options": {
+                "cxxflags": "-lXft -lX11 -lpthread -lfontconfig -lfreetype -ldl",
+                "ldflags": "-lXft -lX11 -lpthread -lfontconfig -lfreetype -ldl"
+            },
+            "post-install": [
                 "install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo org.freedesktop.LinuxAudio.Plugins.Fabla.metainfo.xml",
                 "appstream-compose --basename=org.freedesktop.LinuxAudio.Plugins.Fabla --prefix=${FLATPAK_DEST} --origin=flatpak org.freedesktop.LinuxAudio.Plugins.Fabla"
             ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/openAVproductions/openAV-Fabla/archive/release-1.3.2.tar.gz",
-                    "sha256": "647d47bc65aee0603e1652eba6e0a3058cc9f8f2b893a3c4494c0d53d1268401"
-                },
-                {
-                    "type": "patch",
-                    "path": "patches/fabla-lv2.patch"
+                    "url": "https://github.com/openAVproductions/openAV-Fabla/archive/release-1.4.tar.gz",
+                    "sha256": "2e3a029d2a40a919f3fcc86da207ae44fd463cc41125243ae0ef8d78c93e48a5"
                 },
                 {
                     "type": "patch",
                     "path": "patches/fabla-install.patch"
-                },
-                {
-                    "type": "patch",
-                    "path": "patches/fabla-aarch64.patch"
                 },
                 {
                     "type": "file",
