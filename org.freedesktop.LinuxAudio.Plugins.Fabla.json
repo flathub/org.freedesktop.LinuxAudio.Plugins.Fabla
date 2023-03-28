@@ -45,7 +45,14 @@
             "buildsystem": "cmake-ninja",
             "build-options": {
                 "cxxflags": "-lXft -lX11 -lpthread -lfontconfig -lfreetype -ldl",
-                "ldflags": "-lXft -lX11 -lpthread -lfontconfig -lfreetype -ldl"
+                "ldflags": "-lXft -lX11 -lpthread -lfontconfig -lfreetype -ldl",
+                "arch": {
+                    "aarch64": {
+                        "config-opts": [
+                            "-DBUILD_SSE=OFF"
+                        ]
+                    }
+                }
             },
             "post-install": [
                 "install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo org.freedesktop.LinuxAudio.Plugins.Fabla.metainfo.xml",
